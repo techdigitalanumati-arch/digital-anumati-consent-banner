@@ -1,0 +1,41 @@
+{% comment %}
+  AbyM Consent Banner for Digital Anumati
+  Shopify App Embed Block for India DPDP Act 2023 & DPDP Rules 2025 compliance.
+{% endcomment %}
+
+<!-- AbyM Digital Anumati Consent Banner Embed -->
+<script
+  id="abymdac-blocker"
+  src="https://consent.digitalanumati.com/anumati-blocker.js"
+  {% if block.settings.site_key != blank %}data-site-key="{{ block.settings.site_key | escape }}"{% endif %}
+  async>
+</script>
+
+<script
+  id="abymdac-consent"
+  src="https://consent.digitalanumati.com/anumati-dpdp-consent-v1.js"
+  defer>
+</script>
+
+{% if block.settings.site_key == blank %}
+  <!-- Digital Anumati Warning: Site Key is blank. Please enter your Site Key in Theme Editor -> App Embeds -> Digital Anumati Consent -->
+{% endif %}
+
+
+{% schema %}
+{
+  "name": "Digital Anumati Consent",
+  "target": "head",
+  "settings": [
+    {
+      "type": "text",
+      "id": "site_key",
+      "label": "Digital Anumati Site Key",
+      "info": "Enter your unique Site Key provided by Digital Anumati. Required to activate the banner.",
+      "placeholder": "e.g. APP_khanna-hospital_1783346400770"
+    }
+  ]
+}
+{% endschema %}
+
+
