@@ -96,7 +96,7 @@ export default function Index() {
         </s-paragraph>
       </s-section>
 
-      <s-section slot="aside" heading="Plugin Specs">
+      <s-section slot="aside" heading="Plugin Specs & Support">
         <s-paragraph>
           <s-text>Version: </s-text>
           <code>1.0.0</code>
@@ -104,6 +104,12 @@ export default function Index() {
         <s-paragraph>
           <s-text>Author: </s-text>
           <code>Abym Technology</code>
+        </s-paragraph>
+        <s-paragraph>
+          <s-text>Support Email: </s-text>
+          <s-link href="mailto:tech.digitalanumati@gmail.com">
+            tech.digitalanumati@gmail.com
+          </s-link>
         </s-paragraph>
         <s-paragraph>
           <s-text>Blocker Script: </s-text>
