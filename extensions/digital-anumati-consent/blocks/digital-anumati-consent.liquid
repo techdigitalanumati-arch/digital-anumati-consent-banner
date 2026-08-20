@@ -3,7 +3,7 @@
   Shopify App Embed Block for India DPDP Act 2023 & DPDP Rules 2025 compliance.
 {% endcomment %}
 
-<!-- AbyM Digital Anumati Consent Banner Embed -->
+<!-- AbyM Digital Anumati Blocker Script (Head) -->
 <script
   id="abymdac-blocker"
   src="https://consent.digitalanumati.com/anumati-blocker.js"
@@ -11,15 +11,33 @@
   async>
 </script>
 
-<script
-  id="abymdac-consent"
-  src="https://consent.digitalanumati.com/anumati-dpdp-consent-v1.js"
-  defer>
+<!-- AbyM Digital Anumati Consent Banner Script (Appended at top of <body>) -->
+<script>
+  (function () {
+    'use strict';
+    var scriptId = 'abymdac-consent';
+    var scriptSrc = 'https://consent.digitalanumati.com/anumati-dpdp-consent-v1.js';
+
+    function addBodyScript() {
+      if (!document.body || document.getElementById(scriptId)) return;
+      var script = document.createElement('script');
+      script.id = scriptId;
+      script.src = scriptSrc;
+      document.body.insertBefore(script, document.body.firstChild);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', addBodyScript, { once: true });
+    } else {
+      addBodyScript();
+    }
+  })();
 </script>
 
 {% if block.settings.site_key == blank %}
   <!-- Digital Anumati Warning: Site Key is blank. Please enter your Site Key in Theme Editor -> App Embeds -> Digital Anumati Consent -->
 {% endif %}
+
 
 
 {% schema %}
