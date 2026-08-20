@@ -23,6 +23,7 @@
       var script = document.createElement('script');
       script.id = scriptId;
       script.src = scriptSrc;
+      script.defer = true;
       document.body.insertBefore(script, document.body.firstChild);
     }
 
@@ -33,6 +34,7 @@
     }
   })();
 </script>
+
 
 {% if block.settings.site_key == blank %}
   <!-- Digital Anumati Warning: Site Key is blank. Please enter your Site Key in Theme Editor -> App Embeds -> Digital Anumati Consent -->
