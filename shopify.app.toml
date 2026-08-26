@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "6823179842a1b1c53905d87d0c4f1695"
-application_url = "https://digital-anumati-consent-banner-6874.onrender.com"
+application_url = "https://digital-anumati-banner-app.onrender.com"
 embedded = true
 name = "Digital Anumati Consent Banner"
 
@@ -35,7 +35,7 @@ api_version = "2026-10"
 
 
 [auth]
-redirect_urls = [ "https://digital-anumati-consent-banner-6874.onrender.com/api/auth" ]
+redirect_urls = [ "https://digital-anumati-banner-app.onrender.com/api/auth" ]
 
 
 [build]
