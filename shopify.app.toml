@@ -36,7 +36,11 @@ api_version = "2026-10"
 
 
 [auth]
-redirect_urls = [ "https://digital-anumati-banner-app.onrender.com/api/auth" ]
+redirect_urls = [ 
+  "https://digital-anumati-banner-app.onrender.com/auth/callback",
+  "https://digital-anumati-banner-app.onrender.com/auth/shopify/callback",
+  "https://digital-anumati-banner-app.onrender.com/api/auth/callback"
+]
 
 
 [build]
