@@ -1,4 +1,5 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+# Trigger Render deployment build
 
 client_id = "6823179842a1b1c53905d87d0c4f1695"
 application_url = "https://digital-anumati-banner-app.onrender.com"
