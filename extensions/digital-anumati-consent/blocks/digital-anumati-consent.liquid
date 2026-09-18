@@ -15,7 +15,7 @@
   {% elsif script_trimmed contains 'http://' or script_trimmed contains 'https://' %}
     <script async src="{{ script_trimmed | escape }}"></script>
   {% else %}
-    <!-- Value treated as Site Key if only key was pasted -->
+    <!-- If user pastes Site Key/Application ID directly into Header Script -->
     <script
       id="abymdac-blocker"
       src="https://consent.digitalanumati.com/anumati-blocker.js"
@@ -31,26 +31,10 @@
       async>
     </script>
   {% endif %}
-{% elsif block.settings.site_key != blank %}
-  <!-- Loaded when reviewer or merchant enters Site Key in App Embed settings -->
-  <script
-    id="abymdac-blocker"
-    src="https://consent.digitalanumati.com/anumati-blocker.js"
-    data-application-id="{{ block.settings.site_key | escape }}"
-    data-site-key="{{ block.settings.site_key | escape }}"
-    async>
-  </script>
-  <script
-    id="abymdac-consent"
-    src="https://cdn.digitalanumati.com/widget/v1/anumati-dpdp-consent-v1.js"
-    data-application-id="{{ block.settings.site_key | escape }}"
-    data-site-key="{{ block.settings.site_key | escape }}"
-    async>
-  </script>
 {% else %}
   {% if request.design_mode %}
     <div style="position: fixed; bottom: 0; left: 0; width: 100%; background: #ffeb3b; color: #000; padding: 15px; text-align: center; z-index: 2147483647; font-family: sans-serif; box-shadow: 0 -2px 10px rgba(0,0,0,0.1);">
-      <strong>Digital Anumati Consent:</strong> ⚠️ Please enter your Site Key or Header Script in the App Embed settings to activate the consent banner.
+      <strong>Digital Anumati Consent:</strong> ⚠️ Digital Anumati is almost ready. Please paste your header script in the app dashboard or App Embed settings to activate the consent banner.
     </div>
   {% endif %}
 {% endif %}
@@ -66,13 +50,6 @@
       "label": "Header Script",
       "info": "Paste your full Digital Anumati script tag here. It will be added directly into the <head> section of your website.",
       "placeholder": "write script here"
-    },
-    {
-      "type": "text",
-      "id": "site_key",
-      "label": "Digital Anumati Site Key (Optional)",
-      "info": "Legacy fallback: Enter your unique Site Key if not pasting full header script above.",
-      "placeholder": "e.g. APP_khanna-hospital_1783346400770"
     }
   ]
 }
