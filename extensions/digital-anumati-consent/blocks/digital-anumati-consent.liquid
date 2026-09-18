@@ -9,6 +9,12 @@
 {% endif %}
 
 {% if configured_script != blank %}
+  <style id="abymdac-host-fix">
+    #consent-widget-host,
+    #consent-widget-host:empty {
+      display: block !important;
+    }
+  </style>
   {% assign script_trimmed = configured_script | strip %}
   {% if script_trimmed contains '<script' %}
     {{ script_trimmed }}
