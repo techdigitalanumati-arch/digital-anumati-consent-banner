@@ -19,66 +19,38 @@
     <script
       id="abymdac-blocker"
       src="https://consent.digitalanumati.com/anumati-blocker.js"
+      data-application-id="{{ script_trimmed | escape }}"
       data-site-key="{{ script_trimmed | escape }}"
       async>
     </script>
-    <script>
-      (function () {
-        'use strict';
-        var scriptId = 'abymdac-consent';
-        var scriptSrc = 'https://consent.digitalanumati.com/anumati-dpdp-consent-v1.js';
-
-        function addBodyScript() {
-          if (!document.body || document.getElementById(scriptId)) return;
-          var script = document.createElement('script');
-          script.id = scriptId;
-          script.src = scriptSrc;
-          script.defer = true;
-          document.body.insertBefore(script, document.body.firstChild);
-        }
-
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', addBodyScript, { once: true });
-        } else {
-          addBodyScript();
-        }
-      })();
+    <script
+      id="abymdac-consent"
+      src="https://cdn.digitalanumati.com/widget/v1/anumati-dpdp-consent-v1.js"
+      data-application-id="{{ script_trimmed | escape }}"
+      data-site-key="{{ script_trimmed | escape }}"
+      async>
     </script>
   {% endif %}
 {% elsif block.settings.site_key != blank %}
-  <!-- Backward compatibility for existing users who configured site_key -->
+  <!-- Loaded when reviewer or merchant enters Site Key in App Embed settings -->
   <script
     id="abymdac-blocker"
     src="https://consent.digitalanumati.com/anumati-blocker.js"
+    data-application-id="{{ block.settings.site_key | escape }}"
     data-site-key="{{ block.settings.site_key | escape }}"
     async>
   </script>
-  <script>
-    (function () {
-      'use strict';
-      var scriptId = 'abymdac-consent';
-      var scriptSrc = 'https://consent.digitalanumati.com/anumati-dpdp-consent-v1.js';
-
-      function addBodyScript() {
-        if (!document.body || document.getElementById(scriptId)) return;
-        var script = document.createElement('script');
-        script.id = scriptId;
-        script.src = scriptSrc;
-        script.defer = true;
-        document.body.insertBefore(script, document.body.firstChild);
-      }
-
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', addBodyScript, { once: true });
-      } else {
-        addBodyScript();
-      }
-    })();
+  <script
+    id="abymdac-consent"
+    src="https://cdn.digitalanumati.com/widget/v1/anumati-dpdp-consent-v1.js"
+    data-application-id="{{ block.settings.site_key | escape }}"
+    data-site-key="{{ block.settings.site_key | escape }}"
+    async>
   </script>
 {% else %}
   {% if request.design_mode %}
     <div style="position: fixed; bottom: 0; left: 0; width: 100%; background: #ffeb3b; color: #000; padding: 15px; text-align: center; z-index: 2147483647; font-family: sans-serif; box-shadow: 0 -2px 10px rgba(0,0,0,0.1);">
-      <strong>Digital Anumati Consent:</strong> ⚠️ Digital Anumati is almost ready. Please paste your header script in the app dashboard or App Embed settings to activate the consent banner.
+      <strong>Digital Anumati Consent:</strong> ⚠️ Please enter your Site Key or Header Script in the App Embed settings to activate the consent banner.
     </div>
   {% endif %}
 {% endif %}
