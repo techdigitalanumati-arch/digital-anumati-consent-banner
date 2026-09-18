@@ -3,49 +3,85 @@
   Shopify App Embed Block for India DPDP Act 2023 & DPDP Rules 2025 compliance.
 {% endcomment %}
 
-<!-- AbyM Digital Anumati Blocker Script (Head) -->
-<script
-  id="abymdac-blocker"
-  src="https://consent.digitalanumati.com/anumati-blocker.js"
-  {% if block.settings.site_key != blank %}data-site-key="{{ block.settings.site_key | escape }}"{% endif %}
-  async>
-</script>
+{% assign configured_script = block.settings.head_script %}
+{% if configured_script == blank %}
+  {% assign configured_script = app.metafields.abymdac.head_script.value %}
+{% endif %}
 
-<!-- AbyM Digital Anumati Consent Banner Script (Appended at top of <body>) -->
-<script>
-  (function () {
-    'use strict';
-    var scriptId = 'abymdac-consent';
-    var scriptSrc = 'https://consent.digitalanumati.com/anumati-dpdp-consent-v1.js';
+{% if configured_script != blank %}
+  {% assign script_trimmed = configured_script | strip %}
+  {% if script_trimmed contains '<script' %}
+    {{ script_trimmed }}
+  {% elsif script_trimmed contains 'http://' or script_trimmed contains 'https://' %}
+    <script async src="{{ script_trimmed | escape }}"></script>
+  {% else %}
+    <!-- Value treated as Site Key if only key was pasted -->
+    <script
+      id="abymdac-blocker"
+      src="https://consent.digitalanumati.com/anumati-blocker.js"
+      data-site-key="{{ script_trimmed | escape }}"
+      async>
+    </script>
+    <script>
+      (function () {
+        'use strict';
+        var scriptId = 'abymdac-consent';
+        var scriptSrc = 'https://consent.digitalanumati.com/anumati-dpdp-consent-v1.js';
 
-    function addBodyScript() {
-      if (!document.body || document.getElementById(scriptId)) return;
-      var script = document.createElement('script');
-      script.id = scriptId;
-      script.src = scriptSrc;
-      script.defer = true;
-      document.body.insertBefore(script, document.body.firstChild);
-    }
+        function addBodyScript() {
+          if (!document.body || document.getElementById(scriptId)) return;
+          var script = document.createElement('script');
+          script.id = scriptId;
+          script.src = scriptSrc;
+          script.defer = true;
+          document.body.insertBefore(script, document.body.firstChild);
+        }
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', addBodyScript, { once: true });
-    } else {
-      addBodyScript();
-    }
-  })();
-</script>
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', addBodyScript, { once: true });
+        } else {
+          addBodyScript();
+        }
+      })();
+    </script>
+  {% endif %}
+{% elsif block.settings.site_key != blank %}
+  <!-- Backward compatibility for existing users who configured site_key -->
+  <script
+    id="abymdac-blocker"
+    src="https://consent.digitalanumati.com/anumati-blocker.js"
+    data-site-key="{{ block.settings.site_key | escape }}"
+    async>
+  </script>
+  <script>
+    (function () {
+      'use strict';
+      var scriptId = 'abymdac-consent';
+      var scriptSrc = 'https://consent.digitalanumati.com/anumati-dpdp-consent-v1.js';
 
+      function addBodyScript() {
+        if (!document.body || document.getElementById(scriptId)) return;
+        var script = document.createElement('script');
+        script.id = scriptId;
+        script.src = scriptSrc;
+        script.defer = true;
+        document.body.insertBefore(script, document.body.firstChild);
+      }
 
-{% if block.settings.site_key == blank %}
-  <!-- Digital Anumati Warning: Site Key is blank. -->
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', addBodyScript, { once: true });
+      } else {
+        addBodyScript();
+      }
+    })();
+  </script>
+{% else %}
   {% if request.design_mode %}
     <div style="position: fixed; bottom: 0; left: 0; width: 100%; background: #ffeb3b; color: #000; padding: 15px; text-align: center; z-index: 2147483647; font-family: sans-serif; box-shadow: 0 -2px 10px rgba(0,0,0,0.1);">
-      <strong>Digital Anumati Consent:</strong> ⚠️ Please enter your Site Key in the App Embed settings (left sidebar) to activate the consent banner.
+      <strong>Digital Anumati Consent:</strong> ⚠️ Digital Anumati is almost ready. Please paste your header script in the app dashboard or App Embed settings to activate the consent banner.
     </div>
   {% endif %}
 {% endif %}
-
-
 
 {% schema %}
 {
@@ -53,10 +89,17 @@
   "target": "head",
   "settings": [
     {
+      "type": "textarea",
+      "id": "head_script",
+      "label": "Header Script",
+      "info": "Paste your full Digital Anumati script tag here. It will be added directly into the <head> section of your website.",
+      "placeholder": "write script here"
+    },
+    {
       "type": "text",
       "id": "site_key",
-      "label": "Digital Anumati Site Key",
-      "info": "Enter your unique Site Key provided by Digital Anumati. Required to activate the banner.",
+      "label": "Digital Anumati Site Key (Optional)",
+      "info": "Legacy fallback: Enter your unique Site Key if not pasting full header script above.",
       "placeholder": "e.g. APP_khanna-hospital_1783346400770"
     }
   ]
