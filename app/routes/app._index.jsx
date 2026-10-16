@@ -232,6 +232,19 @@ export default function Index() {
               You can paste the complete <code>&lt;script ...&gt;&lt;/script&gt;</code> tag
               or direct script URL provided by your Digital Anumati account.
             </p>
+            <p
+              style={{
+                margin: "8px 0 0",
+                color: "#666",
+                fontSize: "12px",
+              }}
+            >
+              For more information and to get the Digital Anumati script, visit{" "}
+              <s-link href="https://www.digitalanumati.com/" target="_blank">
+                Digital Anumati
+              </s-link>
+              .
+            </p>
           </div>
 
           <s-button
