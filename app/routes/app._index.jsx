@@ -208,7 +208,7 @@ export default function Index() {
               rows={8}
               value={scriptValue}
               onChange={(e) => setScriptValue(e.target.value)}
-              placeholder="write script here"
+              placeholder="Paste script here"
               style={{
                 width: "100%",
                 boxSizing: "border-box",
